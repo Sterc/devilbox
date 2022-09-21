@@ -42,7 +42,7 @@ TODO
 TODO
 
 # TODO
-- set global nginx config in `vhost-gen/nginx.yml`
+- set global nginx config in `vhost-gen/nginx.yml` (correct for MODX, add www domain) > https://devilbox.readthedocs.io/en/latest/vhost-gen/customize-all-virtual-hosts-globally.html#vhost-gen-customize-all-virtual-hosts-globally
 - comment out unused containers in docker-compose.yml
 - add example for adding custom nginx config
 - add extra php container for 7.4 in docker-compose.yml
