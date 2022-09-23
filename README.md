@@ -27,8 +27,12 @@ Start the docker containers by running `docker-compose up -d` inside your devilb
 This will start all containers defined in your `docker-compose.yml` file.
 You can also start selected containers with `docker-compose up -d php mysql httpd`.
 
-## CLI (npm/composer)
-TODO
+## Running CLI scripts (npm/composer)
+Running npm or composer scripts can be done from within the PHP container(s). Access the main PHP container by running:
+`./shell.sh`
+or
+`docker-compose exec --user devilbox php bash -l` > where 'php' is the name of the container you want to access.
+This will take you to the container shell, where npm, nvm and composer are pre-installed and ready to use.
 
 ### Using SSL / HTTPS
 Every project has as an auto-generated SSL certificate for the local domain (<project-folder>.<suffix>).
@@ -36,13 +40,14 @@ To be able to use this the browser/OS has to have the Devilbox certificate autho
 More info here: https://devilbox.readthedocs.io/en/latest/intermediate/setup-valid-https.html
 
 ## Custom nginx configs
-TODO
+When you want to use a custom nginx config for a project, this can be added as
+`.docker/devilbox/nginx.yml` inside your project folder. 
+There are examples of this in various Sterc projects.
 
 ## Additional PHP versions
-TODO
+The default PHP container is defined by the `PHP_SERVER` value in the `.env` file. 
+You can add additional PHP versions by adding them as services inside the docker-compose.yml file, which will make them available as separate containers.
+An example PHP 7.4 container is already added in the default docker-compose.yml file.
 
 # TODO
 - set global nginx config in `vhost-gen/nginx.yml` (correct for MODX, add www domain) > https://devilbox.readthedocs.io/en/latest/vhost-gen/customize-all-virtual-hosts-globally.html#vhost-gen-customize-all-virtual-hosts-globally
-- comment out unused containers in docker-compose.yml
-- add example for adding custom nginx config
-- add extra php container for 7.4 in docker-compose.yml
