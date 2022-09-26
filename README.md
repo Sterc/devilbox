@@ -10,7 +10,7 @@ Requires docker (https://docs.docker.com/get-started/)
 - `TLD_SUFFIX` > Set this to your own suffix, for example `joeke`
 - `NEW_UID` > Find the UID with command `id -u`
 - `NEW_GID` > Find the GID with command `id -g`
-- `TIMEZONE=CEST`
+- `TIMEZONE=CET`
 - `HOST_PATH_HTTPD_DATADIR` > This is the path where your projects are stored, for example `~/development/www`
 - `HTTPD_DOCROOT_DIR=webroot` > The public/webroot folder inside the project folders
 - `HTTPD_TEMPLATE_DIR=.docker/devilbox` > When using a custom nginx.yml config for a project, it's stored here
@@ -48,6 +48,16 @@ There are examples of this in various Sterc projects.
 The default PHP container is defined by the `PHP_SERVER` value in the `.env` file. 
 You can add additional PHP versions by adding them as services inside the docker-compose.yml file, which will make them available as separate containers.
 An example PHP 7.4 container is already added in the default docker-compose.yml file.
+
+## Overriding php.ini settings
+In the `cfg/php-ini-8.1` folder (or whatever version you're using) you can add a `.ini` file where the default php.ini settings can be overridden.
+For example:
+```
+max_execution_time = 300
+memory_limit = 2048M
+pcre.backtrack_limit = 10000000
+pcre.jit = 0
+```
 
 # TODO
 - set global nginx config in `vhost-gen/nginx.yml` (correct for MODX, add www domain) > https://devilbox.readthedocs.io/en/latest/vhost-gen/customize-all-virtual-hosts-globally.html#vhost-gen-customize-all-virtual-hosts-globally
