@@ -16,6 +16,7 @@
 # Ignore variable data
 /.env
 /backups/*
+/mysql-data/*
 
 # Ignore Data dirs
 /data/www/*
