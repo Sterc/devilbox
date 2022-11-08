@@ -64,7 +64,7 @@ More info here: https://devilbox.readthedocs.io/en/latest/intermediate/setup-val
 When you want to use a custom nginx config for a project, this can be added as `.docker/devilbox/nginx.yml` inside your project folder. 
 There are examples of this in various Sterc projects.
 
-## 8. Custom PHP version per site
+## 7. Custom PHP version per site
 Within the `.docker/devilbox/nginx.yml` file you can also specify the PHP version you want to use for that project.
 
 ## 8. Additional PHP versions
