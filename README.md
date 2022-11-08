@@ -24,6 +24,7 @@ Requires docker (https://docs.docker.com/get-started/)
 - `HTTPD_TEMPLATE_DIR=.docker/devilbox` > When using a custom nginx.yml config for a project, it's stored here
 - `MYSQL_ROOT_PASSWORD=root`
 4. Rename `nginx.yml-sterc` inside the `cfg/vhost-gen/` folder to `nginx.yml`. This is the base nginx config every project uses, and is modified to work with MODX. For a custom nginx config for a specific project, see chapter 6 below.
+5. Rename `custom.conf-example` inside the `cfg/nginx-stable/` folder to `custom.conf`. This has some nginx specific configuration options.
 
 ## 2. Creating projects
 If you create a new folder inside your `HOST_PATH_HTTPD_DATADIR` it will automatically become accessible as a local domain.

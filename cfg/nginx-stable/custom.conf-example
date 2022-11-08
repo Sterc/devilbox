@@ -1,0 +1,148 @@
+# ----------------------------------------------------------------------
+# | Compression                                                        |
+# ----------------------------------------------------------------------
+
+# https://nginx.org/en/docs/http/ngx_http_gzip_module.html
+
+# Enable gzip compression.
+# Default: off
+gzip on;
+
+# Compression level (1-9).
+# 5 is a perfect compromise between size and CPU usage, offering about 75%
+# reduction for most ASCII files (almost identical to level 9).
+# Default: 1
+gzip_comp_level 5;
+
+# Don't compress anything that's already small and unlikely to shrink much if at
+# all (the default is 20 bytes, which is bad as that usually leads to larger
+# files after gzipping).
+# Default: 20
+gzip_min_length 256;
+
+# Compress data even for clients that are connecting to us via proxies,
+# identified by the "Via" header (required for CloudFront).
+# Default: off
+gzip_proxied any;
+
+# Tell proxies to cache both the gzipped and regular version of a resource
+# whenever the client's Accept-Encoding capabilities header varies;
+# Avoids the issue where a non-gzip capable client (which is extremely rare
+# today) would display gibberish if their proxy gave them the gzipped version.
+# Default: off
+gzip_vary on;
+
+# Compress all output labeled with one of the following MIME-types.
+# `text/html` is always compressed by gzip module.
+# Default: text/html
+gzip_types
+  application/atom+xml
+  application/geo+json
+  application/javascript
+  application/x-javascript
+  application/json
+  application/ld+json
+  application/manifest+json
+  application/rdf+xml
+  application/rss+xml
+  application/vnd.ms-fontobject
+  application/wasm
+  application/x-web-app-manifest+json
+  application/xhtml+xml
+  application/xml
+  font/eot
+  font/otf
+  font/ttf
+  image/bmp
+  image/svg+xml
+  image/vnd.microsoft.icon
+  image/x-icon
+  text/cache-manifest
+  text/calendar
+  text/css
+  text/javascript
+  text/markdown
+  text/plain
+  text/xml
+  text/vcard
+  text/vnd.rim.location.xloc
+  text/vtt
+  text/x-component
+  text/x-cross-domain-policy;
+
+# ----------------------------------------------------------------------
+# | Cache expiration                                                   |
+# ----------------------------------------------------------------------
+
+# Serve resources with a far-future expiration date.
+#
+# (!) If you don't control versioning with filename-based cache busting, you
+#     should consider lowering the cache times to something like one week.
+#
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires
+# https://nginx.org/en/docs/http/ngx_http_headers_module.html#expires
+
+map $sent_http_content_type $expires {
+  default                                 1y;
+
+  # No content
+  ""                                      off;
+
+  # CSS
+  ~*text/css                              1y;
+
+  # Data interchange
+  ~*application/atom\+xml                 1h;
+  ~*application/rdf\+xml                  1h;
+  ~*application/rss\+xml                  1h;
+
+  ~*application/json                      epoch;
+  ~*application/ld\+json                  epoch;
+  ~*application/schema\+json              epoch;
+  ~*application/geo\+json                 epoch;
+  ~*application/xml                       epoch;
+  ~*text/calendar                         epoch;
+  ~*text/xml                              epoch;
+
+  # Favicon (cannot be renamed!) and cursor images
+  ~*image/vnd.microsoft.icon              1w;
+  ~*image/x-icon                          1w;
+
+  # HTML
+  ~*text/html                             epoch;
+
+  # JavaScript
+  ~*application/javascript                1y;
+  ~*application/x-javascript              1y;
+  ~*text/javascript                       1y;
+
+  # Manifest files
+  ~*application/manifest\+json            1w;
+  ~*application/x-web-app-manifest\+json  epoch;
+  ~*text/cache-manifest                   epoch;
+
+  # Markdown
+  ~*text/markdown                         epoch;
+
+  # Media files
+  ~*audio/                                1y;
+  ~*image/                                1y;
+  ~*video/                                1y;
+
+  # WebAssembly
+  ~*application/wasm                      1y;
+
+  # Web fonts
+  ~*font/                                 1y;
+  ~*application/vnd.ms-fontobject         1y;
+  ~*application/x-font-ttf                1y;
+  ~*application/x-font-woff               1y;
+  ~*application/font-woff                 1y;
+  ~*application/font-woff2                1y;
+
+  # Other
+  ~*text/x-cross-domain-policy            1w;
+}
+
+expires $expires;
