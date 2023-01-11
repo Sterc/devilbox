@@ -17,6 +17,7 @@
 /.env
 /backups/*
 /mysql-data/*
+!/backups/db-backup.sh
 
 # Ignore Data dirs
 /data/www/*
