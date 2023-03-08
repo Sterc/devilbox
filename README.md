@@ -15,7 +15,7 @@ Requires docker (https://docs.docker.com/get-started/)
 1. Clone this repository to your local machine, for example in `~/development/devilbox`
 2. Create .env file based on env-example file: `cp env-example .env`
 3. Make the following adjustments inside the .env file
-- `TLD_SUFFIX` > Set this to your own suffix, for example `joeke`
+- `TLD_SUFFIX` > Optionally override the default domain suffix, e.g. `local`
 - `NEW_UID` > Find the UID with command `id -u` (usually 501 on mac, 1000 on WSL/Ubuntu)
 - `NEW_GID` > Find the GID with command `id -g` (usualy 20 on mac, 1000 on WSL/Ubuntu)
 - `TIMEZONE=CET`
