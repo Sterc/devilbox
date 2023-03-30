@@ -746,27 +746,27 @@ services:
   # ------------------------------------------------------------
   # Redis
   # ------------------------------------------------------------
-  # redis:
-  #   image: redis:${REDIS_SERVER}
-  #   hostname: redis
+  redis:
+   image: redis:${REDIS_SERVER}
+   hostname: redis
 
-  #   # Apply custom arguments to redis startup
-  #   command: redis-server ${REDIS_ARGS:- }
-  #   environment:
-  #     - REDIS_ARGS=${REDIS_ARGS:- }
+   # Apply custom arguments to redis startup
+   command: redis-server ${REDIS_ARGS:- }
+   environment:
+     - REDIS_ARGS=${REDIS_ARGS:- }
 
-  #   ports:
-  #     # [local-machine:]local-port:docker-port
-  #     - "${LOCAL_LISTEN_ADDR}${HOST_PORT_REDIS}:6379"
+   ports:
+     # [local-machine:]local-port:docker-port
+     - "${LOCAL_LISTEN_ADDR}${HOST_PORT_REDIS}:6379"
 
-  #   networks:
-  #     app_net:
-  #       ipv4_address: 172.16.238.14
+   networks:
+     app_net:
+       ipv4_address: 172.16.238.14
 
-  #   depends_on:
-  #     - bind
-  #     - php
-  #     - httpd
+   depends_on:
+     - bind
+     - php
+     - httpd
 
 
   # ------------------------------------------------------------

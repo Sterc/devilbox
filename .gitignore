@@ -153,6 +153,7 @@
 # Ignore custom bash and other confi files
 /bash/*
 !/bash/bashrc.sh-example
+!/bash/bashrc.sh
 !/bash/README.md
 
 # Ignore documentation sphinx build
